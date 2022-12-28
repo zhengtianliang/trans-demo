@@ -26,4 +26,11 @@ public class TeacherServiceImpl implements TeacherService {
         Teacher teacher = new Teacher(1,"teacher_"+System.currentTimeMillis());
         return teacherMapper.insert(teacher);
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public int insertWithIdWithTrans(Integer id) {
+        Teacher teacher = new Teacher(id,"teacher_"+System.currentTimeMillis());
+        return teacherMapper.insert(teacher);
+    }
 }

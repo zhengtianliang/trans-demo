@@ -29,7 +29,8 @@ public class UserController {
      */
     @GetMapping("/insert0")
     public void insert0(){
-        userService.insert0();
+//        userService.insert0(); // 调用方没事务，被调用方有事务，不会回滚。
+        userService.insert1();
     }
 
 }

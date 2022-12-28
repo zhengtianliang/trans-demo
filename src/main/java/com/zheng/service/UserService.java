@@ -8,4 +8,5 @@ public interface UserService {
     List<User> list();
 
     void insert0();
+    void insert1();
 }

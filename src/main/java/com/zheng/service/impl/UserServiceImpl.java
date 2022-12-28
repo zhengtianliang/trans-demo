@@ -6,9 +6,16 @@ import com.zheng.service.TeacherService;
 import com.zheng.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * @author: ztl
+ * @date: 2022/12/27 11:18
+ * @desc:
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -44,6 +51,27 @@ public class UserServiceImpl implements UserService {
         userMapper.insert(user);
 
         int i = 1/0; // 这里抛出异常，两个提交操作都不会回滚(会成功)
+    }
+
+    /**
+     * @author: ztl
+     * @date: 2022/12/28 10:20
+     * @desc: A(调用方，也就是insert1)方法加了@Transactional注解，会开启事务。
+     *   teacherService.insert(); 也加了@Transactional注解，也会开启事务
+     *   由于user的insert1方法有事务了，而且teacherService.insert()的类型是REQUIRED，
+     *          所以teacher的事务会加入到user的事务(insert1方法的事务)，就是同一个事务了。
+     *   同一个事务中，有异常，所以两个都会回滚
+     *
+     */
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public void insert1(){
+        teacherService.insert();
+
+        User user = new User(2,"user_"+System.currentTimeMillis());
+        userMapper.insert(user);
+
+        int i = 1/0; // 这里抛出异常，两个提交操作都会回滚(不会成功)
     }
 
 }
