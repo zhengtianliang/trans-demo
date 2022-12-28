@@ -9,4 +9,6 @@ public interface UserService {
 
     void insert0();
     void insert1();
+    void insert2();
+    void insert3();
 }

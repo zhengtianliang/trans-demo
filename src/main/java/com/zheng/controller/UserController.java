@@ -29,8 +29,10 @@ public class UserController {
      */
     @GetMapping("/insert0")
     public void insert0(){
-//        userService.insert0(); // 调用方没事务，被调用方有事务，不会回滚。
-        userService.insert1();
+//        userService.insert0(); // 外部无事务，内部有事务required，外部抛出异常，内部、外部都不会回滚。
+//        userService.insert1(); // 外部有事务，required，内部有事务，required，外部抛出异常，俩个都会回滚
+//        userService.insert2(); // 外部required，内部required_new，外部抛出异常，内部事务提交，外部事务回滚
+        userService.insert3(); // 外部required，内部required_new，内部抛出异常，两个都回滚
     }
 
 }
