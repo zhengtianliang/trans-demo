@@ -4,6 +4,7 @@ package com.zheng.controller;
 import com.zheng.entity.User;
 import com.zheng.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,4 +21,15 @@ public class UserController {
     public List<User> list(){
         return userService.list();
     }
+
+    /**
+     * @author: ztl
+     * @date: 2022/12/28 09:37
+     * @desc:
+     */
+    @GetMapping("/insert0")
+    public void insert0(){
+        userService.insert0();
+    }
+
 }

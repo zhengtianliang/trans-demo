@@ -4,12 +4,8 @@
 <mapper namespace="com.zheng.mapper.TeacherMapper">
 
 
-    <select id="selectList" resultType="com.zheng.entity.Teacher">
-       select
-       *
-       from
-       user
-   </select>
-
+   <insert id="insert">
+      insert into teacher (id,teacher_name) values (#{id},#{teacherName})
+   </insert>
 
 </mapper>
